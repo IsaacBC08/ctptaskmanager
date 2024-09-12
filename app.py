@@ -14,7 +14,6 @@ app.config['MYSQL_PASSWORD'] = os.getenv('MYSQL_PASSWORD')
 app.config['MYSQL_DB'] = os.getenv('MYSQL_DB')
 app.config['MYSQL_PORT'] = int(os.getenv('MYSQL_PORT', 3306))
 
-# Configuración de SSL
 app.config['MYSQL_SSL_CA'] = os.getenv('MYSQL_SSL_CA_PATH')
 
 mysql = MySQL(app)
@@ -86,5 +85,5 @@ def add_task():
         return redirect(url_for('index'))
 
 if __name__ == '__main__':
-    port = int(os.getenv('PORT', 8070))
-    app.run(port=port)
+    port = int(os.getenv('PORT', 8000))
+    socketio.run(app, host='0.0.0.0', port=port, debug=True, use_reloader=False)
