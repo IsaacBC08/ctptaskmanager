@@ -3,8 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<<<<<<< HEAD
     <title>Tareas Elegantes</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+=======
+    <title>Inicio</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+        
+        .tarea {
+            background-color: #dff0f8;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .tarea:hover {
+            transform: translateY(-5px);
+        }
+        
+        .titulo {
+            color: #3498db;
+            margin: 0 0 10px 0;
+            font-size: 1.4em;
+        }
+        
+        .materia {
+            color: #e74c3c;
+            margin: 0 0 10px 0;
+            font-size: 1.1em;
+            font-weight: 400;
+        }
+        
+        .detalles {
+            color: #34495e;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        
+        .vencimiento {
+            display: inline-block;
+            background-color: #2ecc71;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.9em;
+        }
+        
+        #notificacion-permiso {
+            display: block;
+            margin: 30px auto;
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        #notificacion-permiso:hover {
+            background-color: #2980b9;
+        }
+    </style>
+>>>>>>> c9c04d8eef3392d723bac18e9b929e3b05ae8306
 </head>
 <body>
     <div class="container">
