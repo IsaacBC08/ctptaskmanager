@@ -1,4 +1,3 @@
-
 from flask import Flask, render_template, request, url_for, redirect, flash
 from flask_mysqldb import MySQL
 from flask_socketio import SocketIO
@@ -14,10 +13,12 @@ app.config['MYSQL_USER'] = os.getenv('MYSQL_USER')
 app.config['MYSQL_PASSWORD'] = os.getenv('MYSQL_PASSWORD')
 app.config['MYSQL_DB'] = os.getenv('MYSQL_DB')
 app.config['MYSQL_PORT'] = int(os.getenv('MYSQL_PORT', 3306))
+
+# Configuración de SSL
 app.config['MYSQL_SSL_CA'] = os.getenv('MYSQL_SSL_CA_PATH')
 
 mysql = MySQL(app)
-socketio = SocketIO(app, cors_allowed_origins='*')
+socketio = SocketIO(app)
 
 @app.route('/')
 def index():
@@ -83,6 +84,7 @@ def add_task():
         flash('Tarea agregada exitosamente!')
         socketio.emit('nueva_tarea', {'titulo': titulo, 'materia': materia})
         return redirect(url_for('index'))
-    
+
 if __name__ == '__main__':
-    socketio.run(app, host='0.0.0.0', port=10000)
+    port = int(os.getenv('PORT', 8070))
+    app.run(port=port)
