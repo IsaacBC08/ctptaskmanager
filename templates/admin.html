@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin</title>
+    <style>
+        /* Importación de fuentes */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        /* Estilo general */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            transition: background-color 0.3s ease;
+        }
+
+        .container {
+            max-width: 800px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+            margin: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #34495e;
+            font-size: 2.2em;
+            margin-bottom: 30px;
+        }
+
+        /* Flash Messages */
+        p {
+            background-color: #f39c12;
+            color: #fff;
+            padding: 12px;
+            border-radius: 5px;
+            font-size: 1rem;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* Formulario */
+        form {
+            display: flex;
+            flex-direction: column;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            margin-bottom: 40px;
+            transition: box-shadow 0.3s ease;
+        }
+
+        form:hover {
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        input[type="text"], input[type="date"], select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        input[type="text"]:focus, input[type="date"]:focus, select:focus {
+            border-color: #3498db;
+            box-shadow: 0 0 8px rgba(52, 152, 219, 0.5);
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+            box-shadow: 0 8px 25px rgba(41, 128, 185, 0.3);
+        }
+
+        /* Lista de Tareas */
+        .tarea {
+            background-color: #e8f6f9;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .tarea:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .titulo {
+            color: #3498db;
+            margin: 0 0 10px 0;
+            font-size: 1.6em;
+            font-weight: 600;
+        }
+
+        .materia {
+            color: #e74c3c;
+            margin: 0 0 10px 0;
+            font-size: 1.3em;
+            font-weight: 500;
+        }
+
+        .detalles {
+            color: #34495e;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+
+        .vencimiento {
+            display: inline-block;
+            background-color: #2ecc71;
+            color: white;
+            padding: 7px 15px;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        /* Enlaces de acción (Editar/Eliminar) */
+        a {
+            text-decoration: none;
+            color: #3498db;
+            font-weight: bold;
+            margin-right: 20px;
+            font-size: 1.1em;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        a:hover {
+            color: #2980b9;
+            transform: translateY(-2px);
+        }
+
+        /* Responsividad */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .titulo {
+                font-size: 1.4em;
+            }
+
+            .materia {
+                font-size: 1.2em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            button {
+                padding: 12px;
+                font-size: 1rem;
+            }
+
+            input[type="text"], input[type="date"], select {
+                padding: 10px;
+                font-size: 0.9rem;
+            }
+
+            .titulo {
+                font-size: 1.2em;
+            }
+
+            .materia {
+                font-size: 1em;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Administración de Tareas</h1>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <form action="/add_task" method="post">
+            <input type="text" name="titulo" id="titulo" placeholder="Título de la tarea" required>
+            <select name="materia" id="materia" required>
+                <option value="">Selecciona una materia</option>
+                <option value="Español">Español</option>
+                <option value="Ética">Ética</option>
+                <option value="Educación Física">Educación Física</option>
+                <option value="Física">Física</option>
+                <option value="Inglés Acad.">Inglés Acad.</option>
+                <option value="Matemáticas">Matemáticas</option>
+                <option value="Música">Música</option>
+                <option value="Estudios Sociales">Estudios Sociales</option>
+                <option value="Fundamentos">Fundamentos</option>
+                <option value="AySaC">AySaC</option>
+                <option value="TICS">TICS</option>
+                <option value="Inglés Tec.">Inglés Tec.</option>
+            </select>
+            <input type="text" name="detalle" id="detalle" placeholder="Detalles de la tarea" required>
+            <input type="date" name="vencimiento" id="vencimiento" placeholder="Fecha de vencimiento" required>
+            <button type="submit">Agregar Tarea</button>
+        </form>
+
+        {% for tarea in tareas %}
+            <div class="tarea">
+                <h2 class="titulo">{{ tarea.1 }}</h2>
+                <h3 class="materia">{{ tarea.2 }}</h3>
+                <p class="detalles">{{ tarea.3 }}</p>
+                <span class="vencimiento">Vence: {{ tarea.4 }}</span>
+                <a href="/edit/{{ tarea.0 }}">Editar</a>
+                <a href="/delete/{{ tarea.0 }}">Eliminar</a>
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

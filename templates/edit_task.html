@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit</title>
+</head>
+<body>
+    <form action="/update/{{ tarea.0 }}" method="post">
+        <input type="text" name="titulo" id="titulo" placeholder="Titulo" value="{{ tarea.1 }}">
+        <input type="text" name="materia" id="materia" placeholder="materia" value="{{ tarea.2 }}">
+        <input type="text" name="detalle" id="detalle" placeholder="detalle" value="{{ tarea.3 }}">
+        <input type="text" name="vencimiento" id="vencimiento" placeholder="vence" value="{{ tarea.4 }}">
+        <button type="submit">Guardar cambios</button>
+    </form>
+</body>
+</html>
