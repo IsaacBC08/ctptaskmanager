@@ -23,10 +23,26 @@
     <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
     <script type="text/javascript">
       var socket = io();
-    
+      const boton = document.getElementById("notificacion-permiso")
+      boton.addEventListener("click", function() {
+        Notification.requestPermission().then(function(permission) {
+          if (permission === "granted") {
+            alert("Permiso para notificaciones concedido.");
+          } else {
+            alert("Permiso para notificaciones denegado.");
+          }
+        });
+      });
+
       // Escuchar el evento 'nueva_tarea' para mostrar la notificación
       socket.on('nueva_tarea', function(data) {
-        alert("Nueva tarea añadida: " + data.titulo + " en la materia: " + data.materia);
+        if (Notification.permission === "granted") {
+          new Notification("Nueva tarea añadida", {
+            body: "Título: " + data.titulo + "\nMateria: " + data.materia
+          });
+        } else {
+          alert("Notificaciones no permitidas.");
+        }
       });
     </script>
 </body>
